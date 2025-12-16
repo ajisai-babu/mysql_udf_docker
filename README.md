@@ -1,19 +1,15 @@
 # mysql_udf_docker
 
-mysql udf 提权docker环境
+mysql udf提权靶场
 使用方法
 ```
-docker build -t mysql_udf .
-
-docker run -d -p 3306:3306 --name=mysql_udf mysql_udf
+git clone https://github.com/ajisai-babu/mysql_udf_docker.git
+docker-compose up -d --build
 ```
 
 复现
 ```
-
-(base) ➜  mysql_udf docker exec -it mysql_udf bash
-
-bash-4.2# mysql -uroot -proot
+bash-4.2# mysql -h your_ip -uroot -proot
 mysql: [Warning] Using a password on the command line interface can be insecure.
 Welcome to the MySQL monitor.  Commands end with ; or \g.
 Your MySQL connection id is 5
@@ -46,27 +42,4 @@ mysql> quit
 Bye
 bash-4.2# exit
 exit
-```
-
-靶场mysql默认不支持远程登录，请自行开启
-```
-bash-4.2# mysql -uroot -proot
-mysql: [Warning] Using a password on the command line interface can be insecure.
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 22
-Server version: 5.7.41 MySQL Community Server (GPL)
-
-Copyright (c) 2000, 2023, Oracle and/or its affiliates.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
-Query OK, 0 rows affected, 1 warning (0.03 sec)
-
-mysql> flush privileges;
-Query OK, 0 rows affected (0.01 sec)
 ```
